@@ -14,7 +14,7 @@ const tokenizer = new TokenizerEn();
 const stopwords = new StopwordsEn();
 const stemmer = new StemmerEn();
 
-stopwords.dictionary = {};
+stopwords.dictionary = {}; ///////  کاستومایز کردن دیکشنری حروف اضافه
 stopwords.build(stopWords);
 
 var tagger = new pos.Tagger();
@@ -28,21 +28,27 @@ let arrayOfWords = []
 
 data.forEach(element => {
 
-    const result1 = normalizer.normalize(element)
-    let removeNumbers = result1.replace(/[0-9]/g, '');
+    const result1 = normalizer.normalize(element) //// نرمال کردن کدها و lowercase کردن
 
-    const result2 = tokenizer.tokenize(removeNumbers);
+    
 
-    const result3 = stopwords.removeStopwords(result2)
-    const result4 = result3.map(el => stemmer.stemWord(el));
 
-    array.push(result3)
+    let removeNumbers = result1.replace(/[0-9]/g, ''); //// پاک کردن عددا
+    
+    const result2 = tokenizer.tokenize(removeNumbers); //// توکن بندی
+    const result3 = stopwords.removeStopwords(result2) /// حذف کلمات اضافی
+    const result4 = result3.map(el => stemmer.stemWord(el)); // ریشه یابی
+
+    if (result4.length != 0) {
+        array.push(result4)
+    }
+    
 
     result4.forEach(element => {
         if(!arrayOfWords.includes(element)) arrayOfWords.push(element)
     });
 
-    // const result5 = tagger.tag(result4);
+     const result5 = tagger.tag(result4); 
 
 });
 

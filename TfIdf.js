@@ -11,7 +11,7 @@ TfIdf.prototype.weights = function(documents,term) {
         
         var tf = this.tf(documents[i],term)
         var tfidf = tf*idf
-        var result = tfidf  
+        var result = tfidf 
         
         results.push(result)
     }
@@ -31,7 +31,6 @@ TfIdf.prototype.tf = function(words,term) {
             result = result+1
         }    
     }
-
     return result/words.length
 }
 
